@@ -147,10 +147,10 @@
             today.setHours(0, 0, 0, 0);
 
             if (!date) {
-               alert("Please select a date!");
+               document.querySelector("button").textContent = "Select!";
                return;
             } else if (selectedDate > today) {
-               document.querySelector("button").textContent = "future!";
+               document.querySelector("button").textContent = "Future!";
                return;
             } else if (selectedDate < new Date("1996-01-01")) {
                document.querySelector("button").textContent = "Past!";
