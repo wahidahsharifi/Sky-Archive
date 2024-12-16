@@ -4,11 +4,7 @@
       <meta charset="UTF-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <title>Sky Archive</title>
-      <link
-         rel="shortcut icon"
-         id="fav"
-         href=""
-         type="image/x-icon" />
+      <link rel="shortcut icon" id="fav" href="" type="image/x-icon" />
       <link
          rel="stylesheet"
          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=edit_calendar" />
@@ -128,8 +124,12 @@
          )
             .then((response) => response.json())
             .then((data) => {
-               console.log(data);
-               document.querySelector('body').insertAdjacentHTML('afterbegin', `<img src="${data.url}" alt="bg" class="bg" />`)
+               document
+                  .querySelector("body")
+                  .insertAdjacentHTML(
+                     "afterbegin",
+                     `<img src="${data.url}" alt="bg" class="bg" />`
+                  );
                document.getElementById("fav").href = `${data.url}`;
             })
             .catch((err) => {
@@ -138,7 +138,9 @@
 
          async function fetchAPOD() {
             const date = document.getElementById("dateInput").value;
-            const selectedDate = new Date(document.getElementById("dateInput").value); // Get selected date
+            const selectedDate = new Date(
+               document.getElementById("dateInput").value
+            ); // Get selected date
             const today = new Date();
 
             selectedDate.setHours(0, 0, 0, 0);
@@ -149,13 +151,16 @@
                return;
             } else if (selectedDate > today) {
                document.querySelector("button").textContent = "future!";
-               return
+               return;
+            } else if (selectedDate < new Date("1996-01-01")) {
+               document.querySelector("button").textContent = "Past!";
+               return;
             }
 
             const apiKey = "fVsNas9dIHI1I3mWlGRAAY2uYPggb11RVHalixpC";
             const apiUrl = `https://api.nasa.gov/planetary/apod?api_key=${apiKey}&date=${date}`;
             document.querySelector("button").textContent = "Finding...";
-            
+
             try {
                const response = await fetch(apiUrl);
                const data = await response.json();
